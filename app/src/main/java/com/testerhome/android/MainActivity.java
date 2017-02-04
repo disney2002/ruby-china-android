@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -112,6 +113,17 @@ public class MainActivity extends BaseActivity
         searchView.setOnQueryTextListener(this);
 
         MenuItemCompat.setOnActionExpandListener(searchItem, new SearchExpandListener(this));
+
+        MenuItem listNodeItem = menu.findItem(R.id.action_list_node);
+        listNodeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Log.i("HHHHHHHH: ", "listNodeItem is clicked! ");
+                location = getString(R.string.root_url) + "/nodes/list";
+                visitProposedToLocationWithAction(location, "");
+                return true;
+            }
+        });
 
         return true;
     }
