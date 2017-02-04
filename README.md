@@ -1,7 +1,3 @@
-# Ruby China for Android
+## TesterHome Android 客户端
 
-Ruby China Android App via [Turbolinks Android](https://github.com/turbolinks/turbolinks-android).
-
-## Development
-
-Development and build as normal Android app with Android Studio.
+基于 Ruby China for Android 的代码开发。

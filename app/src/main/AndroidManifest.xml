@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.ruby_china.android">
+    package="com.testerhome.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,8 +10,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".Application">
-        <activity android:name=".MainActivity">
+        android:name="com.testerhome.android.Application">
+        <activity android:name="com.testerhome.android.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,26 +19,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TopicActivity"
+            android:name="com.testerhome.android.TopicActivity"
             android:label="话题"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="com.testerhome.android.MainActivity" />
         <activity
-            android:name=".EmptyActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.testerhome.android.EmptyActivity"
+            android:parentActivityName="com.testerhome.android.MainActivity" />
         <activity
-            android:name=".TopicNewActivity"
+            android:name="com.testerhome.android.TopicNewActivity"
             android:label="新话题"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="com.testerhome.android.MainActivity" />
         <activity
-            android:name=".TopicEditActivity"
+            android:name="com.testerhome.android.TopicEditActivity"
             android:label="编辑话题" />
         <activity
-            android:name=".ReplyEditActivity"
+            android:name="com.testerhome.android.ReplyEditActivity"
             android:label="编辑回复" />
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.testerhome.android.SettingsActivity"
             android:label="设置"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="com.testerhome.android.MainActivity" />
     </application>
 
 </manifest>

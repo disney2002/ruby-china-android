@@ -1,4 +1,4 @@
-package org.ruby_china.android;
+package com.testerhome.android;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 

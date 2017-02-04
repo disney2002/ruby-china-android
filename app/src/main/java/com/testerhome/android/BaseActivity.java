@@ -1,15 +1,18 @@
-package org.ruby_china.android;
+package com.testerhome.android;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
 
 import com.basecamp.turbolinks.TurbolinksAdapter;
 import com.basecamp.turbolinks.TurbolinksSession;
 import com.basecamp.turbolinks.TurbolinksView;
+
+
 
 public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter {
     protected static final String INTENT_URL = "intentUrl";
@@ -52,6 +55,7 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
         super.onCreate(savedInstanceState);
 
         TurbolinksSession.getDefault(this).getWebView().setWebChromeClient(new WebChromeClient());
+        TurbolinksSession.getDefault(this).getWebView().setWebContentsDebuggingEnabled(true);
 
         location = getIntent().getStringExtra(INTENT_URL);
     }
@@ -108,6 +112,9 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
         Intent intent;
 
         Uri uri = Uri.parse(location);
+
+        Log.i("HHHHHHHH: ", "location is: " + location);
+        Log.i("HHHHHHHH: ", "action is: " + action);
 
         if (location.startsWith(getString(R.string.root_url))) {
             String path = uri.getPath();

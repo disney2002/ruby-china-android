@@ -1,4 +1,4 @@
-package org.ruby_china.android;
+package com.testerhome.android;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity
         TurbolinksSession.getDefault(this).setDebugLoggingEnabled(true);
 
         WebSettings webSettings = TurbolinksSession.getDefault(this).getWebView().getSettings();
-        webSettings.setUserAgentString("turbolinks-app, ruby-china, official, android");
+        webSettings.setUserAgentString("turbolinks-app, testerhome, official, android");
 
         location = getString(R.string.root_url) + "/topics";
 
@@ -230,7 +230,7 @@ public class MainActivity extends BaseActivity
             mNavigationView.getMenu().setGroupVisible(R.id.group_user, true);
 
             try {
-                mUserAvatarImageView.setImageURI(mCurrenetUserMeta.getString("userAvatarUrl"));
+                mUserAvatarImageView.setImageURI(getString(R.string.root_url) + mCurrenetUserMeta.getString("userAvatarUrl"));
                 mUserNameTextView.setText(mCurrenetUserMeta.getString("userLogin"));
                 mUserEmailTextView.setText(mCurrenetUserMeta.getString("userEmail"));
             } catch (JSONException e){
@@ -242,7 +242,7 @@ public class MainActivity extends BaseActivity
 
             mUserAvatarImageView.setImageResource(R.drawable.ic_account_circle_white_48dp);
             mUserNameTextView.setText("Guest");
-            mUserEmailTextView.setText("guest@ruby-china.org");
+            mUserEmailTextView.setText("guest@testerhome.com");
         }
 
     }

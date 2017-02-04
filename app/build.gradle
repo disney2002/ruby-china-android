@@ -2,9 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion '25.0.2'
     defaultConfig {
-        applicationId 'org.ruby_china.android'
+        applicationId 'com.testerhome.android'
         minSdkVersion 21
         targetSdkVersion 24
         versionCode 1
@@ -14,10 +14,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue "string", "root_url", "https://ruby-china.org"
+            resValue "string", "root_url", "https://testerhome.com"
         }
         debug {
-            resValue "string", "root_url", "https://ruby-china.org"
+            resValue "string", "root_url", "https://testerhome.com"
         }
     }
     productFlavors {
@@ -29,6 +29,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
-    compile 'com.basecamp:turbolinks:1.0.3'
-    compile 'com.facebook.fresco:fresco:0.13.0'
+    compile 'com.basecamp:turbolinks:1.0.4'
+    compile 'com.facebook.fresco:fresco:1.0.1'
 }

@@ -32,6 +32,6 @@
         android:id="@+id/user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="guest@ruby-china.org" />
+        android:text="guest@testerhome.com" />
 
 </LinearLayout>

@@ -9,15 +9,18 @@
             android:title="设置" />
         <item
             android:id="@+id/nav_sign_out"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
             android:title="退出" />
     </group>
     <group
         android:id="@+id/group_guest">
         <item
             android:id="@+id/nav_sign_up"
+            android:icon="@drawable/ic_account_register_black_24dp"
             android:title="注册" />
         <item
             android:id="@+id/nav_sign_in"
+            android:icon="@drawable/ic_app_login_black_24dp"
             android:title="登录" />
     </group>
 </menu>
