@@ -20,6 +20,12 @@ android {
             resValue "string", "root_url", "https://testerhome.com"
         }
     }
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/MANIFEST.MF'
+    }
     productFlavors {
     }
 }
@@ -31,4 +37,7 @@ dependencies {
     compile 'com.android.support:design:24.1.1'
     compile 'com.basecamp:turbolinks:1.0.4'
     compile 'com.facebook.fresco:fresco:1.0.1'
+    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    compile 'com.jayway.jsonpath:json-path:2.2.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
