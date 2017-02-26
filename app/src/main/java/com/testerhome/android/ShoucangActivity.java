@@ -58,6 +58,7 @@ public class ShoucangActivity extends AppCompatActivity {
     SSLContext sslContext = null;
     String json = "";
     ListView shoucangListView;
+    String loginuser;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -80,12 +81,18 @@ public class ShoucangActivity extends AppCompatActivity {
         Log.i("xsz", "进入列表页启动");
         shoucangListView = (ListView) this.findViewById(R.id.shoucang_listview);
 
+        //新页面接收数据
+        Bundle bundle = this.getIntent().getExtras();
+        //接收name值
+        loginuser = bundle.getString("loginuser");
+        Log.i("xsz","登陆用户名===="+loginuser);
+
         //-------------请求okhttps
         new Thread() {
             @Override
             public void run() {
                 OkHttpClient okHttpClient = httpclient();
-                Request request = new Request.Builder().url("https://testerhome.com/api/v3/users/xushizhao/favorites.json").build();
+                Request request = new Request.Builder().url("https://testerhome.com/api/v3/users/"+loginuser+"/favorites.json").build();
                 try {
 
                     Response response = okHttpClient.newCall(request).execute();
@@ -104,9 +111,12 @@ public class ShoucangActivity extends AppCompatActivity {
                                     for (int i = 0; i < topics.length(); i++) {
                                         JSONObject topic = topics.getJSONObject(i);
                                         HashMap<String, String> map = new HashMap<String, String>();
+                                        map.put("ItemImg","https://testerhome.com/"+topic.getJSONObject("user").getString("avatar_url"));
                                         map.put("ItemTitleId", topic.getString("id"));
                                         map.put("ItemTitle", topic.getString("title"));
                                         map.put("ItemText", topic.getJSONObject("user").getString("name"));
+                                        map.put("ItemRepliesCount", topic.getString("replies_count"));
+
                                         mylist.add(map);
                                     }
 
@@ -116,10 +126,10 @@ public class ShoucangActivity extends AppCompatActivity {
                                             R.layout.shoucang_list,//ListItem的XML实现
 
                                             //动态数组与ListItem对应的子项
-                                            new String[]{"ItemTitleId","ItemTitle", "ItemText"},
+                                            new String[]{"ItemImg","ItemTitleId","ItemTitle", "ItemText","ItemRepliesCount","ItemRepliesCount"},
 
                                             //ListItem的XML文件里面的两个TextView ID
-                                            new int[]{R.id.ItemTitleId,R.id.ItemTitle, R.id.ItemText});
+                                            new int[]{R.id.ItemImg,R.id.ItemTitleId,R.id.ItemTitle, R.id.ItemText,R.id.ItemRepliesCount});
                                     //添加并且显示
                                     shoucangListView.setAdapter(mSchedule);
 
