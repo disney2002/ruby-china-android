@@ -17,6 +17,7 @@
             android:id="@+id/huati"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="话题"
             />
     </LinearLayout>
@@ -33,6 +34,7 @@
             android:id="@+id/zhishiku"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="知识库"
             />
     </LinearLayout>
@@ -52,6 +54,7 @@
             android:id="@+id/shoucang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="收藏"
             />
     </LinearLayout>
@@ -68,6 +71,7 @@
             android:id="@+id/tongzhi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="通知"
             />
     </LinearLayout>
