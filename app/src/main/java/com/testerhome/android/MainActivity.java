@@ -223,6 +223,9 @@ public class MainActivity extends BaseActivity
 
         @Override
         public void onReceiveValue(String value) {
+
+            Log.i("xsz","==========："+value);
+
             try {
                 if (value.equals("null")) {
                     mActivity.setAppData(null);
@@ -233,6 +236,8 @@ public class MainActivity extends BaseActivity
                 e.printStackTrace();
             }
             mActivity.updateNavigationView();
+            Log.i("xsz","登陆后 更新数据完成：");
+
         }
     }
 
@@ -261,6 +266,11 @@ public class MainActivity extends BaseActivity
                 mUserAvatarImageView.setImageURI(getString(R.string.root_url) + mCurrenetUserMeta.getString("userAvatarUrl"));
                 mUserNameTextView.setText(mCurrenetUserMeta.getString("userLogin"));
                 mUserEmailTextView.setText(mCurrenetUserMeta.getString("userEmail"));
+
+//                Log.i("xsz","跳转至mainactivity");
+//                Intent intent = new Intent(this, MainActivity.class);
+//                this.startActivity(intent);
+
             } catch (JSONException e){
                 e.printStackTrace();
             }
@@ -290,7 +300,7 @@ public class MainActivity extends BaseActivity
         if(!mUserNameTextView.getText().equals("Guest"))
         {
             intent = new Intent(this, ShoucangActivity.class);
-            //intent.putExtra(INTENT_URL, location);
+            intent.putExtra("loginuser", mUserNameTextView.getText());
             this.startActivity(intent);
         }else{
 
