@@ -13,7 +13,6 @@ import com.basecamp.turbolinks.TurbolinksSession;
 import com.basecamp.turbolinks.TurbolinksView;
 
 
-
 public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter {
     protected static final String INTENT_URL = "intentUrl";
 
@@ -22,6 +21,14 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
     private ValueCallback<Uri[]> mFilePathCallback;
     private final int REQUEST_SELECT_FILE = 1001;
+    /**
+     * request code for sign in
+     */
+    private final int REQUEST_SIGN_IN = 1002;
+    /**
+     * result code when sign in is canceled
+     */
+    protected static final int RESULT_SIGN_IN_CANCELED = 1003;
     private boolean onSelectFileCallback = false;
 
     class WebChromeClient extends android.webkit.WebChromeClient {
@@ -39,12 +46,21 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
         switch (requestCode) {
             case REQUEST_SELECT_FILE:
                 if (resultCode == RESULT_OK && data != null) {
-                    mFilePathCallback.onReceiveValue(new Uri[] { data.getData() });
+                    mFilePathCallback.onReceiveValue(new Uri[]{data.getData()});
                 } else {
                     mFilePathCallback.onReceiveValue(null);
                 }
                 onSelectFileCallback = true;
                 break;
+            case REQUEST_SIGN_IN:
+                /**
+                 * when sign in action is canceled, just finish self
+                 */
+                if (resultCode == RESULT_SIGN_IN_CANCELED) {
+                    finish();
+                }
+                break;
+
             default:
                 super.onActivityResult(requestCode, resultCode, data);
         }
@@ -95,7 +111,7 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
     public void requestFailedWithStatusCode(int statusCode) {
         switch (statusCode) {
             case 401:
-                Log.i("xsz","请求状态码错，跳转登陆页面：");
+                Log.i("xsz", "请求状态码错，跳转登陆页面：");
                 visitProposedToLocationWithAction(getString(R.string.root_url) + "/account/sign_in", "advance");
                 break;
             default:
@@ -138,23 +154,27 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
             } else if (path.matches("/account/edit")) {
                 intent = new Intent(this, SettingsActivity.class);
                 intent.putExtra(INTENT_URL, location);
+            } else if (path.matches("/account/sign_in")) {
+                /**
+                 * SignIn seems to be a very special action as it can be canceled
+                 * we share same webview across several activity and
+                 * there is no way for webview to be notified when sign in is canceled
+                 *
+                 * so when we use SignInActivity, we expected it to have a result
+                 * with an result, we will get whether sign in is canceled
+                 *
+                 * @see BaseActivity#onActivityResult(int, int, Intent)
+                 */
+                intent = new Intent(this, SignInActivity.class);
+                intent.putExtra(INTENT_URL, location);
+
+                startActivityForResult(intent, REQUEST_SIGN_IN);
+                return;
             } else {
-
-                //登陆成功后，会调用这个请求，直接跳转到mainactivity，不用直接找开网页了
-                if(location.equals("https://testerhome.com/")){
-
-                    intent = new Intent(this, MainActivity.class);
-                }else {
-
-                    intent = new Intent(this, EmptyActivity.class);
-                    intent.putExtra(INTENT_URL, location);
-                }
-
-
+                intent = new Intent(this, EmptyActivity.class);
+                intent.putExtra(INTENT_URL, location);
             }
         } else {
-
-
             intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(uri);
         }

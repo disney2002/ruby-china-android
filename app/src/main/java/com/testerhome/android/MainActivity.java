@@ -47,11 +47,11 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
 
         //加入按钮监听
-        TextView huatitext = (TextView)findViewById(R.id.huati);
-        TextView zhishikutext = (TextView)findViewById(R.id.zhishiku);
+        View huatitext = findViewById(R.id.huati);
+        View zhishikutext = findViewById(R.id.zhishiku);
 
-        huatitext.setOnClickListener(new Button_Listener(this,huatitext.getText().toString()));
-        zhishikutext.setOnClickListener(new Button_Listener(this,zhishikutext.getText().toString()));
+        huatitext.setOnClickListener(new Button_Listener(this,"话题"));
+        zhishikutext.setOnClickListener(new Button_Listener(this,"知识库"));
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
