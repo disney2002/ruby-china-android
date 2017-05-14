@@ -1,5 +1,6 @@
 package com.testerhome.android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,11 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.basecamp.turbolinks.TurbolinksSession;
 import com.basecamp.turbolinks.TurbolinksView;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.testerhome.android.listener.Button_Listener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +45,14 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //加入按钮监听
+        TextView huatitext = (TextView)findViewById(R.id.huati);
+        TextView zhishikutext = (TextView)findViewById(R.id.zhishiku);
+
+        huatitext.setOnClickListener(new Button_Listener(this,huatitext.getText().toString()));
+        zhishikutext.setOnClickListener(new Button_Listener(this,zhishikutext.getText().toString()));
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
@@ -105,6 +116,8 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
+
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView =
@@ -181,6 +194,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         mDrawerLayout.closeDrawer(GravityCompat.START);
         switch (item.getItemId()) {
             case R.id.nav_sign_up:
@@ -209,6 +223,9 @@ public class MainActivity extends BaseActivity
 
         @Override
         public void onReceiveValue(String value) {
+
+            Log.i("xsz","==========："+value);
+
             try {
                 if (value.equals("null")) {
                     mActivity.setAppData(null);
@@ -219,6 +236,8 @@ public class MainActivity extends BaseActivity
                 e.printStackTrace();
             }
             mActivity.updateNavigationView();
+            Log.i("xsz","登陆后 更新数据完成：");
+
         }
     }
 
@@ -242,9 +261,16 @@ public class MainActivity extends BaseActivity
             mNavigationView.getMenu().setGroupVisible(R.id.group_user, true);
 
             try {
+
+                Log.i("xsz","登陆后 缓存中的数据："+mCurrenetUserMeta.toString());
                 mUserAvatarImageView.setImageURI(getString(R.string.root_url) + mCurrenetUserMeta.getString("userAvatarUrl"));
                 mUserNameTextView.setText(mCurrenetUserMeta.getString("userLogin"));
                 mUserEmailTextView.setText(mCurrenetUserMeta.getString("userEmail"));
+
+//                Log.i("xsz","跳转至mainactivity");
+//                Intent intent = new Intent(this, MainActivity.class);
+//                this.startActivity(intent);
+
             } catch (JSONException e){
                 e.printStackTrace();
             }
@@ -265,4 +291,39 @@ public class MainActivity extends BaseActivity
                 null
         );
     }
+
+
+    //点击收藏
+    public void onShouCang(View v) {
+
+        Intent intent;
+        if(!mUserNameTextView.getText().equals("Guest"))
+        {
+            intent = new Intent(this, ShoucangActivity.class);
+            intent.putExtra("loginuser", mUserNameTextView.getText());
+            this.startActivity(intent);
+        }else{
+
+            visitProposedToLocationWithAction(getString(R.string.root_url) + "/account/sign_in", "advance");
+        }
+    }
+
+    //点击通知
+    public void onTongzhi(View v) {
+
+        Intent intent;
+        if(!mUserNameTextView.getText().equals("Guest"))
+        {
+            intent = new Intent(this, TongZhiActivity.class);
+            intent.putExtra(INTENT_URL, getString(R.string.root_url) + "/notifications");
+
+            this.startActivity(intent);
+        }else{
+
+            visitProposedToLocationWithAction(getString(R.string.root_url) + "/account/sign_in", "advance");
+        }
+    }
+
+
+
 }

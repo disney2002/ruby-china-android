@@ -95,6 +95,7 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
     public void requestFailedWithStatusCode(int statusCode) {
         switch (statusCode) {
             case 401:
+                Log.i("xsz","请求状态码错，跳转登陆页面：");
                 visitProposedToLocationWithAction(getString(R.string.root_url) + "/account/sign_in", "advance");
                 break;
             default:
@@ -113,8 +114,8 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
         Uri uri = Uri.parse(location);
 
-        Log.i("HHHHHHHH: ", "location is: " + location);
-        Log.i("HHHHHHHH: ", "action is: " + action);
+        Log.i("xsz: ", "location is: " + location);
+        Log.i("xsz: ", "action is: " + action);
 
         if (location.startsWith(getString(R.string.root_url))) {
             String path = uri.getPath();
@@ -124,8 +125,10 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
                 intent = new Intent(this, TopicActivity.class);
                 intent.putExtra(INTENT_URL, location);
             } else if (path.matches("/topics/new")) {
+                Log.i("xsz: ", "进入新增模块: " + action);
                 intent = new Intent(this, TopicNewActivity.class);
                 intent.putExtra(INTENT_URL, location);
+
             } else if (path.matches("/topics/\\d+/edit")) {
                 intent = new Intent(this, TopicEditActivity.class);
                 intent.putExtra(INTENT_URL, location);
@@ -136,10 +139,22 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
                 intent = new Intent(this, SettingsActivity.class);
                 intent.putExtra(INTENT_URL, location);
             } else {
-                intent = new Intent(this, EmptyActivity.class);
-                intent.putExtra(INTENT_URL, location);
+
+                //登陆成功后，会调用这个请求，直接跳转到mainactivity，不用直接找开网页了
+                if(location.equals("https://testerhome.com/")){
+
+                    intent = new Intent(this, MainActivity.class);
+                }else {
+
+                    intent = new Intent(this, EmptyActivity.class);
+                    intent.putExtra(INTENT_URL, location);
+                }
+
+
             }
         } else {
+
+
             intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(uri);
         }

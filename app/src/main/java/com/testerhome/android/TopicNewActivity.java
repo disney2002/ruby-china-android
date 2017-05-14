@@ -3,6 +3,7 @@ package com.testerhome.android;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,6 +24,7 @@ public class TopicNewActivity extends BaseActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         turbolinksView = (TurbolinksView) findViewById(R.id.topic_new_turbolinks_view);
+
 
         TurbolinksSession.getDefault(this)
                 .activity(this)

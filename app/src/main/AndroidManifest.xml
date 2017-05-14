@@ -39,6 +39,24 @@
             android:name="com.testerhome.android.SettingsActivity"
             android:label="设置"
             android:parentActivityName="com.testerhome.android.MainActivity" />
+
+
+        <activity
+            android:name="com.testerhome.android.ShoucangActivity"
+            android:label="收藏"
+            android:parentActivityName="com.testerhome.android.MainActivity" />
+
+        <activity
+            android:name="com.testerhome.android.TongZhiActivity"
+            android:label="通知"
+            android:parentActivityName="com.testerhome.android.MainActivity" />
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>
