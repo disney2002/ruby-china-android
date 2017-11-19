@@ -6,4 +6,8 @@
         android:icon="@drawable/ic_search_white_24dp"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView" />
+    <item android:id="@+id/action_list_node"
+        android:title="节点"
+        android:icon="@drawable/ic_nodes_white_24dp"
+        app:showAsAction="ifRoom|collapseActionView"/>
 </menu>

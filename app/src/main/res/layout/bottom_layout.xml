@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/colorAccent"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/huati"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            fresco:placeholderImage="@drawable/ic_picture_in_picture_alt_white_24dp"
+            fresco:roundAsCircle="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="话题"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/zhishiku"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            fresco:placeholderImage="@drawable/ic_import_contacts_white_24dp"
+            fresco:roundAsCircle="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="知识库"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:onClick="onShouCang"
+        >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            fresco:placeholderImage="@drawable/ic_bookmark_border_white_24dp"
+            fresco:roundAsCircle="true"
+            />
+
+        <TextView
+            android:id="@+id/shoucang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="收藏"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:onClick="onTongzhi">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            fresco:placeholderImage="@drawable/ic_mail_outline_white_24dp"
+            fresco:roundAsCircle="true"
+            />
+        <TextView
+            android:id="@+id/tongzhi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="通知"
+            />
+    </LinearLayout>
+
+</LinearLayout>
+

@@ -1,4 +1,4 @@
-package org.ruby_china.android;
+package com.testerhome.android;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.webkit.ValueCallback;
 
 import com.basecamp.turbolinks.TurbolinksSession;
 import com.basecamp.turbolinks.TurbolinksView;
+
 
 public class TopicActivity extends BaseActivity {
 

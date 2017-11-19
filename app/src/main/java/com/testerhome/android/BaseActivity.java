@@ -1,15 +1,17 @@
-package org.ruby_china.android;
+package com.testerhome.android;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
 
 import com.basecamp.turbolinks.TurbolinksAdapter;
 import com.basecamp.turbolinks.TurbolinksSession;
 import com.basecamp.turbolinks.TurbolinksView;
+
 
 public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter {
     protected static final String INTENT_URL = "intentUrl";
@@ -19,6 +21,14 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
     private ValueCallback<Uri[]> mFilePathCallback;
     private final int REQUEST_SELECT_FILE = 1001;
+    /**
+     * request code for sign in
+     */
+    private final int REQUEST_SIGN_IN = 1002;
+    /**
+     * result code when sign in is canceled
+     */
+    protected static final int RESULT_SIGN_IN_CANCELED = 1003;
     private boolean onSelectFileCallback = false;
 
     class WebChromeClient extends android.webkit.WebChromeClient {
@@ -36,12 +46,21 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
         switch (requestCode) {
             case REQUEST_SELECT_FILE:
                 if (resultCode == RESULT_OK && data != null) {
-                    mFilePathCallback.onReceiveValue(new Uri[] { data.getData() });
+                    mFilePathCallback.onReceiveValue(new Uri[]{data.getData()});
                 } else {
                     mFilePathCallback.onReceiveValue(null);
                 }
                 onSelectFileCallback = true;
                 break;
+            case REQUEST_SIGN_IN:
+                /**
+                 * when sign in action is canceled, just finish self
+                 */
+                if (resultCode == RESULT_SIGN_IN_CANCELED) {
+                    finish();
+                }
+                break;
+
             default:
                 super.onActivityResult(requestCode, resultCode, data);
         }
@@ -52,6 +71,7 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
         super.onCreate(savedInstanceState);
 
         TurbolinksSession.getDefault(this).getWebView().setWebChromeClient(new WebChromeClient());
+        TurbolinksSession.getDefault(this).getWebView().setWebContentsDebuggingEnabled(true);
 
         location = getIntent().getStringExtra(INTENT_URL);
     }
@@ -91,6 +111,7 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
     public void requestFailedWithStatusCode(int statusCode) {
         switch (statusCode) {
             case 401:
+                Log.i("xsz", "请求状态码错，跳转登陆页面：");
                 visitProposedToLocationWithAction(getString(R.string.root_url) + "/account/sign_in", "advance");
                 break;
             default:
@@ -109,6 +130,9 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
         Uri uri = Uri.parse(location);
 
+        Log.i("xsz: ", "location is: " + location);
+        Log.i("xsz: ", "action is: " + action);
+
         if (location.startsWith(getString(R.string.root_url))) {
             String path = uri.getPath();
             if (path.matches("/topics")) {
@@ -117,8 +141,10 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
                 intent = new Intent(this, TopicActivity.class);
                 intent.putExtra(INTENT_URL, location);
             } else if (path.matches("/topics/new")) {
+                Log.i("xsz: ", "进入新增模块: " + action);
                 intent = new Intent(this, TopicNewActivity.class);
                 intent.putExtra(INTENT_URL, location);
+
             } else if (path.matches("/topics/\\d+/edit")) {
                 intent = new Intent(this, TopicEditActivity.class);
                 intent.putExtra(INTENT_URL, location);
@@ -128,6 +154,22 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
             } else if (path.matches("/account/edit")) {
                 intent = new Intent(this, SettingsActivity.class);
                 intent.putExtra(INTENT_URL, location);
+            } else if (path.matches("/account/sign_in")) {
+                /**
+                 * SignIn seems to be a very special action as it can be canceled
+                 * we share same webview across several activity and
+                 * there is no way for webview to be notified when sign in is canceled
+                 *
+                 * so when we use SignInActivity, we expected it to have a result
+                 * with an result, we will get whether sign in is canceled
+                 *
+                 * @see BaseActivity#onActivityResult(int, int, Intent)
+                 */
+                intent = new Intent(this, SignInActivity.class);
+                intent.putExtra(INTENT_URL, location);
+
+                startActivityForResult(intent, REQUEST_SIGN_IN);
+                return;
             } else {
                 intent = new Intent(this, EmptyActivity.class);
                 intent.putExtra(INTENT_URL, location);

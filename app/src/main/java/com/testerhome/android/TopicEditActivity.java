@@ -1,7 +1,7 @@
-package org.ruby_china.android;
+package com.testerhome.android;
 
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,19 +9,20 @@ import android.view.MenuItem;
 import com.basecamp.turbolinks.TurbolinksSession;
 import com.basecamp.turbolinks.TurbolinksView;
 
-public class TopicNewActivity extends BaseActivity {
+
+public class TopicEditActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_topic_new);
+        setContentView(R.layout.activity_topic_edit);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.topic_new_toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.topic_edit_toolbar);
         setSupportActionBar(myToolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 
-        turbolinksView = (TurbolinksView) findViewById(R.id.topic_new_turbolinks_view);
+        turbolinksView = (TurbolinksView) findViewById(R.id.topic_edit_turbolinks_view);
 
         TurbolinksSession.getDefault(this)
                 .activity(this)
@@ -32,26 +33,31 @@ public class TopicNewActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.topic_new_menu, menu);
+        getMenuInflater().inflate(R.menu.topic_edit_menu, menu);
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
-            case R.id.action_topic_create:
-                topicCreate();
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.action_topic_update:
+                topicUpdate();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void topicCreate() {
+    private void topicUpdate() {
         TurbolinksSession.getDefault(this).getWebView().evaluateJavascript(
                 "$('form[tb=\"edit-topic\"]').submit();",
                 null
         );
     }
+
 }

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:id="@+id/MyListItem"
+    android:paddingBottom="3dip"
+    android:paddingLeft="10dip"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    android:background="@drawable/list_bg"
+    >
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/ItemTitleId"
+        android:visibility="gone"
+        android:textColor="#000000">
+    </TextView>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_height="fill_parent"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        >
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_height="fill_parent"
+            android:layout_width="48dp"
+            android:layout_marginRight="10dp"
+            xmlns:fresco="http://schemas.android.com/apk/res-auto"
+            >
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/ItemImg"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    fresco:placeholderImage="@drawable/ic_account_circle_white_48dp"
+                    fresco:roundAsCircle="true"
+                    >
+                </com.facebook.drawee.view.SimpleDraweeView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_height="fill_parent"
+            android:layout_weight="2">
+            >
+
+            <TextView
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:id="@+id/ItemTitle"
+                android:textColor="#000000"
+                android:layout_weight="1">
+            </TextView>
+
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:id="@+id/ItemText"
+                android:textColor="#cac5c5">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_height="fill_parent"
+            android:layout_width="18dp"
+            android:layout_marginLeft="8dp"
+            >
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:id="@+id/ItemRepliesCount"
+                android:textColor="#cac5c5">
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
